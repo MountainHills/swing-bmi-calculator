@@ -14,13 +14,18 @@ public class GUI extends JFrame {
     private JLabel titleLabel;
     private JButton metricBtn, imperialBtn;
 
+    // Second Layer Components
+    private JPanel heightTextPanel, weightTextPanel, weightFieldPanel, heightFieldPanel;
+    private JLabel weightLabel, heightLabel, heightFtLabel, heightInLabel;
+    private JTextField weightTextField, heightTextField, heightFtTextField, heightInTextField;
+
     // Third Layer Components
     private JPanel btnCalculatePanel;
     private JButton calculateBtn;
 
     // Constants
     private final int FRAME_WIDTH = 275;
-    private final int FRAME_HEIGHT = 500;
+    private final int FRAME_HEIGHT = 300;
 
     public GUI() {
         this.setTitle("BMI Calculator in Java Swing");
@@ -45,7 +50,14 @@ public class GUI extends JFrame {
         btnMeasurementPanel = new JPanel();
 
         metricBtn = new JButton("Metric");
+        metricBtn.addActionListener(e -> {
+            System.out.println("Clicked on Metric Button");
+        });
+
         imperialBtn = new JButton("Imperial");
+        imperialBtn.addActionListener(e -> {
+            System.out.println("Clicked on Imperial Button");
+        });
 
         btnMeasurementPanel.add(metricBtn);
         btnMeasurementPanel.add(imperialBtn);
@@ -56,8 +68,35 @@ public class GUI extends JFrame {
         firstPanel.add(measurementPanel);
 
         // Second Panel Layer - Inputs
-        secondPanel = new JPanel();
+        secondPanel = new JPanel(new GridLayout(2,2));
         secondPanel.setBackground(Color.GREEN);
+
+        // Weight Input
+        weightTextPanel = new JPanel(new GridBagLayout());
+        weightLabel = new JLabel("Weight: ");
+        weightLabel.setFont(new Font("Fira Sans Bold", Font.BOLD, 16));
+        weightTextPanel.add(weightLabel);
+
+        weightFieldPanel = new JPanel(new GridBagLayout());
+        weightTextField = new JTextField("Testing");
+        weightFieldPanel.add(weightTextField);
+
+        // Height Input
+        heightTextPanel = new JPanel(new GridBagLayout());
+        heightLabel = new JLabel("Height: ");
+        heightLabel.setFont(new Font("Fira Sans Bold", Font.BOLD, 16));
+        heightTextPanel.setBackground(Color.DARK_GRAY);
+        heightTextPanel.add(heightLabel);
+
+        heightFieldPanel = new JPanel(new GridBagLayout());
+        heightTextField = new JTextField("This is a test");
+        heightFieldPanel.setBackground(Color.ORANGE);
+        heightFieldPanel.add(heightTextField);
+
+        secondPanel.add(weightTextPanel);
+        secondPanel.add(weightTextField);
+        secondPanel.add(heightTextPanel);
+        secondPanel.add(heightTextField);
 
         // Third Panel Layer - Calculate
         thirdPanel = new JPanel(new GridBagLayout());
@@ -66,6 +105,10 @@ public class GUI extends JFrame {
 
         btnCalculatePanel = new JPanel(new GridBagLayout());
         calculateBtn = new JButton("Calculate BMI");
+        calculateBtn.addActionListener(e -> {
+            String something = heightTextField.getText() + " " + weightTextField.getText();
+            System.out.println("Hello World " + something);
+        });
 
         btnCalculatePanel.add(calculateBtn);
 
