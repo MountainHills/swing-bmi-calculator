@@ -1,6 +1,8 @@
 package com.antonbondoc.calculator.view;
 
 import javax.swing.*;
+import javax.swing.border.Border;
+import javax.swing.border.EmptyBorder;
 import java.awt.*;
 
 public class GUI extends JFrame {
@@ -40,24 +42,21 @@ public class GUI extends JFrame {
         firstPanel = new JPanel(new GridLayout(2, 1));
 
         titlePanel = new JPanel(new GridBagLayout());
-        titlePanel.setBackground(Color.MAGENTA);
+//        titlePanel.setBackground(Color.MAGENTA);
         titleLabel = new JLabel("BMI Calculator");
         titleLabel.setFont(new Font("Fira Sans Bold", Font.BOLD, 36));
         titlePanel.add(titleLabel);
 
         measurementPanel = new JPanel(new GridBagLayout());
-        measurementPanel.setBackground(Color.CYAN);
+//        measurementPanel.setBackground(Color.CYAN);
         btnMeasurementPanel = new JPanel();
 
         metricBtn = new JButton("Metric");
-        metricBtn.addActionListener(e -> {
-            System.out.println("Clicked on Metric Button");
-        });
+        metricBtn.setEnabled(false);
+        metricBtn.addActionListener(e -> activateMetric());
 
         imperialBtn = new JButton("Imperial");
-        imperialBtn.addActionListener(e -> {
-            System.out.println("Clicked on Imperial Button");
-        });
+        imperialBtn.addActionListener(e -> activateImperial());
 
         btnMeasurementPanel.add(metricBtn);
         btnMeasurementPanel.add(imperialBtn);
@@ -68,8 +67,9 @@ public class GUI extends JFrame {
         firstPanel.add(measurementPanel);
 
         // Second Panel Layer - Inputs
-        secondPanel = new JPanel(new GridLayout(2,2));
-        secondPanel.setBackground(Color.GREEN);
+        secondPanel = new JPanel(new GridLayout(2,2, 10, 10));
+//        secondPanel = new JPanel(new FlowLayout());
+//        secondPanel.setBackground(Color.GREEN);
 
         // Weight Input
         weightTextPanel = new JPanel(new GridBagLayout());
@@ -78,19 +78,22 @@ public class GUI extends JFrame {
         weightTextPanel.add(weightLabel);
 
         weightFieldPanel = new JPanel(new GridBagLayout());
-        weightTextField = new JTextField("Testing");
+        weightTextField = new JTextField("Enter weight");
+        weightTextField.setHorizontalAlignment(SwingConstants.CENTER);
         weightFieldPanel.add(weightTextField);
 
         // Height Input
         heightTextPanel = new JPanel(new GridBagLayout());
         heightLabel = new JLabel("Height: ");
         heightLabel.setFont(new Font("Fira Sans Bold", Font.BOLD, 16));
-        heightTextPanel.setBackground(Color.DARK_GRAY);
+//        heightTextPanel.setBackground(Color.DARK_GRAY);
         heightTextPanel.add(heightLabel);
 
         heightFieldPanel = new JPanel(new GridBagLayout());
-        heightTextField = new JTextField("This is a test");
-        heightFieldPanel.setBackground(Color.ORANGE);
+//        heightFieldPanel.setBackground(Color.DARK_GRAY);
+        heightTextField = new JTextField("Enter height");
+        heightTextField.setHorizontalAlignment(SwingConstants.CENTER);
+//        heightFieldPanel.setBackground(Color.ORANGE);
         heightFieldPanel.add(heightTextField);
 
         secondPanel.add(weightTextPanel);
@@ -100,15 +103,12 @@ public class GUI extends JFrame {
 
         // Third Panel Layer - Calculate
         thirdPanel = new JPanel(new GridBagLayout());
-        thirdPanel.setBackground(Color.BLUE);
+//        thirdPanel.setBackground(Color.BLUE);
         thirdPanel.setPreferredSize(new Dimension(FRAME_WIDTH,50));
 
         btnCalculatePanel = new JPanel(new GridBagLayout());
         calculateBtn = new JButton("Calculate BMI");
-        calculateBtn.addActionListener(e -> {
-            String something = heightTextField.getText() + " " + weightTextField.getText();
-            System.out.println("Hello World " + something);
-        });
+        calculateBtn.addActionListener(e -> calculateBMI());
 
         btnCalculatePanel.add(calculateBtn);
 
@@ -121,5 +121,21 @@ public class GUI extends JFrame {
 
         this.add(mainPanel);
         this.setVisible(true);
+    }
+
+    private void calculateBMI() {
+        System.out.println("Calculating the BMI.");
+    }
+
+    private void activateImperial() {
+        imperialBtn.setEnabled(false);
+        metricBtn.setEnabled(true);
+        System.out.println("I clicked the Imperial Button");
+    }
+
+    private void activateMetric() {
+        metricBtn.setEnabled(false);
+        imperialBtn.setEnabled(true);
+        System.out.println("I clicked the Metric Button");
     }
 }

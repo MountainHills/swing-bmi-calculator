@@ -29,6 +29,7 @@ public class Experiment implements ActionListener {
 
         label = new JLabel("Number of clicks: 0");
         label.setAlignmentX(CENTER_ALIGNMENT);
+        label.setHorizontalAlignment(SwingConstants.CENTER);
 
         panel.setBorder(
                 BorderFactory.createEmptyBorder(100, 100, 100, 100)
